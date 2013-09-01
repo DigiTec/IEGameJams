@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>WebGLAM Framework Template</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+
+    <!-- Can define WebGLAM location before including, incase <this>.html is not immediate parent-->
+<script type="text/javascript">
+    WEBGLAM_RELATIVE_PATH = '../../WebGLAM';
+    ASCENSION_RELATIVE_PATH = '../';
+</script>
+<script type="text/javascript" src="../../WebGLAM/WebGLAM.js"> </script>
+<script type="text/javascript" src="../Ascension.js"></script>
+
+
+<script id="shader-fs-texture" type="x-shader/x-fragment">
+    varying highp vec2 vTextureCoord;
+    uniform sampler2D uSampler;
+
+    void main(void) {
+        gl_FragColor = texture2D(uSampler, vTextureCoord);
+    }
+</script>
+
+<script id="shader-vs-texture" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+    attribute vec2 aTextureCoord;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+
+    varying highp vec2 vTextureCoord;
+
+    void main(void) {
+        gl_Position = uPMatrix *uMVMatrix * vec4(aVertexPosition, 1.0);
+        vTextureCoord = aTextureCoord;
+    }
+</script>
+
+
+<script type="text/javascript">
+
+
+    
+    /**************************************Main.js***********************************/
+    
+    function BeginDraw() {       
+        gl.clearColor(0.0, 0.4, 0.7, 1.0);
+        gl.enable(gl.DEPTH_TEST);
+        
+        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+
+        mat4.identity(mvMatrix); 
+    }
+
+    function webGLStart() {
+        initGL('canvas');
+        CreateAllVertexAndFragmentShaders();
+
+        meshTexturedSquare = Mesh.CreateTexturedSquareMesh('shader-vs-texture',
+                                                           'shader-fs-texture',
+                                                           '../../Assets/WebGLAM.png');
+
+        meshTexturedAlphaSquare = Mesh.CreateTexturedAlphaSquareMesh('shader-vs-texture',
+                                                           'shader-fs-texture',
+                                                           '../../Assets/WebGLAM.png');
+
+        // Start drawing...
+        setTimeout(Draw, 16.7)
+    }
+    
+    var Rotation = 0;
+    function Draw() {         
+        Rotation += .01;
+        if (Rotation >= Math.PI * 2) Rotation = 0;
+
+        BeginDraw();
+
+       // mat4.translate(mvMatrix, [0, 0, -10.0]);
+
+        for (var i = 0; i < 1; i += .1) {
+
+            // Drawing Square
+            mvPushMatrix();
+            mat4.translate(mvMatrix, [Math.cos(i * _PI), Math.sin(i * _PI), -10.0]);
+            mat4.rotate(mvMatrix, Rotation, [0.5, 0.0, 1.0]);
+            meshTexturedSquare.draw();
+            mvPopMatrix();
+
+            mvPushMatrix();
+            mat4.translate(mvMatrix, [Math.cos(i * _PI) * 5, Math.sin(i * _PI) * 5, -10.0]);
+            mat4.rotate(mvMatrix, Rotation, [0.0, 0.5, 1.0]);
+            meshTexturedAlphaSquare.draw();
+            mvPopMatrix();
+        }
+
+        setTimeout(Draw, 16.7);
+    }
+</script>
+
+
+</head>
+
+
+<body onload="webGLStart();">
+    <div>
+        Welcome to WebGLAM 0.1!
+    </div>
+    <canvas id="canvas" style="border: none;" width="500" height="500"></canvas>
+
+    <br/>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title> Starter - WebGLAM</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+        <!-- Can define WebGLAM location before including, incase <this>.html is not immediate parent-->
+<script type="text/javascript">
+    WEBGLAM_RELATIVE_PATH = '..\\WebGLAM';
+</script>
+<script type="text/javascript" src="..\WebGLAM\WebGLAM.js"> </script>
+
+<script id="shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+
+    void main(void) {
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+    uniform mat4 uCamMatrix;
+
+    void main(void) {
+        gl_Position = uPMatrix * uCamMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    }
+</script>
+
+
+<script type="text/javascript">
+    /**************************************Main.js***********************************/
+    function webGLStart() {
+        initWebGLAM('canvas');
+
+        meshPixelLoc = -WEBGLAM.viewport.width;
+        Rotation = 0;
+
+        camera = new Camera();
+        camera.transform.translate(0, 0, -camera.getZToMatchPixelsDimension());
+        console.log(camera.getZToMatchPixelsDimension());
+
+        meshSquare = Mesh.CreateSquareMesh('shader-vs', 'shader-fs');
+        meshSquare.transform.scale(10, 10, 0);
+
+        // Start drawing...
+        setTimeout(Draw, 16.7)
+    }
+
+    function Draw() {         
+        Rotation += .01;
+        if (Rotation >= Math.PI * 2) Rotation = 0;
+
+        camera.draw();
+
+        meshPixelLoc+=5;
+        console.log(meshPixelLoc);
+        if (meshPixelLoc === WEBGLAM.viewport.width) {
+            meshPixelLoc = -WEBGLAM.viewport.width;
+            console.log('resetting camera location');
+        }
+        var radius = camera.getViewTopHeight();
+        meshSquare.transform.translate(meshPixelLoc, meshPixelLoc, 0);
+        meshSquare.draw();
+
+        setTimeout(Draw, 16.7);
+    }
+</script>
+
+
+</head>
+
+
+<body onload="webGLStart();">
+    <canvas id="canvas" style="border: none;" width="500" height="500"></canvas>
+
+    <br/>
+</body>
+
+</html>

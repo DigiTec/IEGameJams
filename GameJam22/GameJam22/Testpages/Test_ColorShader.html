@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>Test_Color Shader- WebGLAM</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+        <!-- Can define WebGLAM location before including, incase <this>.html is not immediate parent-->
+<script type="text/javascript">
+    WEBGLAM_RELATIVE_PATH = '..\\WebGLAM';
+</script>
+<script type="text/javascript" src="..\WebGLAM\WebGLAM.js"> </script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 aVertexPosition;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+    uniform mat4 uCamMatrix;
+
+    void main(void) {
+        gl_Position = uPMatrix * uCamMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    }
+</script>
+
+
+<script type="text/javascript">
+    /**************************************Main.js***********************************/
+    function webGLStart() {
+        initWebGLAM('canvas');
+
+
+        camera = new Camera();
+        camera.transform.translate(0, 0, -10.0);
+
+        meshTriangle = Mesh.CreateTriangleMesh('shader-vs', 'shader-fs');
+        meshSquare = Mesh.CreateSquareMesh('shader-vs', 'shader-fs');
+
+
+        // TODO: Add shader indexing test here.
+        // go over arrayFragmentShaders and arrayVertexShaders and compare them with the script element's
+        // textContents.
+
+        // Start drawing...
+        setTimeout(Draw, 16.7)
+    }
+    
+    var Rotation = 0;
+    function Draw() {         
+        Rotation += .01;
+        if( Rotation >= Math.PI * 2) Rotation = 0;
+               
+        camera.draw();
+
+        // Drawing Square
+        mat4.translate(mvMatrix, [0.0, 0.0, -5.0])
+        mat4.rotate(mvMatrix, Rotation, [0.0, 1.0, 0.0]);
+        meshSquare.draw();
+        
+        setTimeout(Draw, 16.7);
+    }
+</script>
+
+
+</head>
+
+
+<body onload="webGLStart();">
+    <canvas id="canvas" style="border: none;" width="500" height="500"></canvas>
+
+    <br/>
+</body>
+
+</html>
