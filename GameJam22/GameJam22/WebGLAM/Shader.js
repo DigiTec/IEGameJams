@@ -9,9 +9,12 @@ function getShader(gl, shaderScript) {
     }
 
     var str = "";
-    if (!(typeof shaderScript.textContent === 'undefined')) {      // Get string from Inline shader
+    if (!(typeof shaderScript.textContent === 'undefined')) {
+        // Get string from Inline shader
         str = shaderScript.textContent;
-    } else {        // Get string from <script> tag
+    }
+    else {
+        // Get string from <script> tag
         var k = shaderScript.firstChild;
         while (k) {
             if (k.nodeType == 3) {
@@ -45,42 +48,48 @@ function getShader(gl, shaderScript) {
 }
 
 function CreateAllVertexAndFragmentShaders() {
-    var all = document.getElementsByTagName("*");
+    var scripts = document.getElementsByTagName("script");
 
     // Index all shaders in 'arrayShaderStrings' array
     for (var i = 0; i < arrayShaderStrings.length; ++i) {
         // Add Fragment Shaders
         if (arrayShaderStrings[i].type == 'x-shader/x-fragment') {
-            if (!(arrayShaderStrings[i].id in arrayFragmentShaders))
+            if (!(arrayShaderStrings[i].id in arrayFragmentShaders)) {
                 arrayFragmentShaders[arrayShaderStrings[i].id] = getShader(gl, arrayShaderStrings[i]);
+            }
         }
             // Add Vertex Shaders
         else if (arrayShaderStrings[i].type == 'x-shader/x-vertex') {
-            if (!(arrayShaderStrings[i].id in arrayVertexShaders))
+            if (!(arrayShaderStrings[i].id in arrayVertexShaders)) {
                 arrayVertexShaders[arrayShaderStrings[i].id] = getShader(gl, arrayShaderStrings[i]);
+            }
         }
     }
 
     // Index all shaders in document.
-    for (var i = 0; i < all.length; ++i) {
+    for (var i = 0; i < scripts.length; ++i) {
         // Add Fragment Shaders
         if (all[i].type == 'x-shader/x-fragment') {
-            if(!(all[i].id in arrayFragmentShaders))
+            if (!(all[i].id in arrayFragmentShaders)) {
                 arrayFragmentShaders[all[i].id] = getShader(gl, all[i]);
+            }
         }
             // Add Vertex Shaders
         else if (all[i].type == 'x-shader/x-vertex') {
-            if (!(all[i].id in arrayVertexShaders))
+            if (!(all[i].id in arrayVertexShaders)) {
                 arrayVertexShaders[all[i].id] = getShader(gl, all[i]);
+            }
         }
     }
 }
 
 function buildShaderProgram(vertexShader, fragmentShader) {
-    if (Object.prototype.toString.call(fragmentShader) != "[object WebGLShader]")
+    if (!(fragmentShader instanceof WebGLShader)) {
         throw "buildShaderProgram: fragmentShader args is not a WebGLShader";
-    if (Object.prototype.toString.call(vertexShader) != "[object WebGLShader]")
+    }
+    if (!(vertexShader instanceof WebGLShader)) {
         throw "buildShaderProgram: vertexShader args is not a WebGLShader";
+    }
 
     shaderProgram = gl.createProgram();
     gl.attachShader(shaderProgram, vertexShader);
