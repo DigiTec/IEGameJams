@@ -123,6 +123,7 @@ function useShaderProgram(shaderProgram) {
     gl.uniformMatrix4fv(shaderProgram.camMatrixUniform, false, camMatrix);
 
     // Point shader sampler at currently binded texture.
-    if (this.shaderProgram.isTextureDependent)
+    if (this.shaderProgram.isTextureDependent) {
         gl.uniform1i(gl.getUniformLocation(shaderProgram, "uSampler"), 0);
+    }
 }

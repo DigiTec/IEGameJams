@@ -24,8 +24,6 @@ Object.defineProperties(InGame.prototype, {
     },
     onEnter: {
         value: function onEnter() {
-            initWebGLAM('canvas');
-
             this.viewXMin = -WEBGLAM.viewport.width;
             this.viewXMax = -this.viewXMin;
 

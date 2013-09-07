@@ -1,32 +1,32 @@
 function Mesh() {
-            this.transform = new Transform();
+    this.transform = new Transform();
 
-            this.vertexShader = null;
-            this.fragmentShader = null;
+    this.vertexShader = null;
+    this.fragmentShader = null;
 
-            this.shaderProgram = null;
+    this.shaderProgram = null;
 
-            this.vertexBuffer = null;
-            this.indexBuffer = null;
-            this.texturecoordBuffer = null;
+    this.vertexBuffer = null;
+    this.indexBuffer = null;
+    this.texturecoordBuffer = null;
 
-            this.texture = null;
+    this.texture = null;
 
-            /* Drawing modes.
-                gl.POINTS
-                gl.LINES
-                gl.LINE_LOOP
-                gl.LINE_STRIP
-                gl.TRIANGLES
-                gl.TRIANGLE_STRIP
-                gl.TRIANGLE_FAN
-            */
-            this.drawMode = gl.TRIANGLES;
-            this.vec4Color = new Float32Array(4);
-            this.vec4Color[0] = 1.0,
-            this.vec4Color[1] = 1.0,
-            this.vec4Color[2] = 1.0,
-            this.vec4Color[3] = 1.0;
+    /* Drawing modes.
+        gl.POINTS
+        gl.LINES
+        gl.LINE_LOOP
+        gl.LINE_STRIP
+        gl.TRIANGLES
+        gl.TRIANGLE_STRIP
+        gl.TRIANGLE_FAN
+    */
+    this.drawMode = gl.TRIANGLES;
+    this.vec4Color = new Float32Array(4);
+    this.vec4Color[0] = 1.0,
+    this.vec4Color[1] = 1.0,
+    this.vec4Color[2] = 1.0,
+    this.vec4Color[3] = 1.0;
 }
 
 // Statics
@@ -101,16 +101,17 @@ Object.defineProperties(Mesh, {
             mesh.indexBuffer = gl.createBuffer();
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
             var indices = [
-                0, 1, 2,      0, 2, 3
+                0, 1, 2, 0, 2, 3
             ];
             gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
-            
+
             mesh.indexBuffer.itemSize = 1;
             mesh.indexBuffer.numItems = 6;
 
             // Load texture
-            if (!pathToTexture)
+            if (!pathToTexture) {
                 console.error("Mesh.CreateTexturedSquareMesh() - No 'pathToTexture' args passed!");
+            }
             else {
                 // Buffer Texture Coordinates
                 mesh.texturecoordBuffer = gl.createBuffer();
@@ -121,8 +122,7 @@ Object.defineProperties(Mesh, {
                     1.0, 1.0,
                     0.0, 1.0
                 ];
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates),
-                              gl.STATIC_DRAW);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates), gl.STATIC_DRAW);
 
                 mesh.texturecoordBuffer.itemSize = 2;
                 mesh.texturecoordBuffer.numItems = 4;
@@ -168,8 +168,9 @@ Object.defineProperties(Mesh, {
             mesh.indexBuffer.numItems = 6;
 
             // Load texture
-            if (!pathToTexture)
+            if (!pathToTexture) {
                 console.error("Mesh.CreateTexturedSquareMesh() - No 'pathToTexture' args passed!");
+            }
             else {
                 // Buffer Texture Coordinates
                 mesh.texturecoordBuffer = gl.createBuffer();
@@ -180,8 +181,7 @@ Object.defineProperties(Mesh, {
                     1.0, 1.0,
                     0.0, 1.0
                 ];
-                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates),
-                              gl.STATIC_DRAW);
+                gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(textureCoordinates), gl.STATIC_DRAW);
 
                 mesh.texturecoordBuffer.itemSize = 2;
                 mesh.texturecoordBuffer.numItems = 4;
@@ -218,8 +218,9 @@ Object.defineProperties(Mesh.prototype, {
             mvIdentity();
             this.transform.render();
 
-            if (!this.shaderProgram)
+            if (!this.shaderProgram) {
                 this.shaderProgram = buildShaderProgram(this.vertexShader, this.fragmentShader);
+            }
 
             if (this.texture) {
                 if (this.texture.hasAlphaChannel) {
@@ -249,9 +250,10 @@ Object.defineProperties(Mesh.prototype, {
 
             // Reset Blend state State
             if (this.texture) {
-                if (this.texture.hasAlphaChannel)
+                if (this.texture.hasAlphaChannel) {
                     gl.enable(gl.DEPTH_TEST);
                     gl.disable(gl.BLEND);
+                }
             }
 
             mvPopMatrix();

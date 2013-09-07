@@ -29,18 +29,17 @@ function IncludeScript(filepath) {
 }
 
 // http://code.google.com/p/glmatrix/wiki/Usage
-
-IncludeScript('glMatrix-0.9.5.min.js');
-IncludeScript('Timer.js');
-IncludeScript('Math.js');
-IncludeScript('Transform.js');
-IncludeScript('Mesh.js');
-IncludeScript('Texture.js');
-IncludeScript('Camera.js');
-IncludeScript('ShaderCollection.js');
-IncludeScript('Shader.js');
-IncludeScript('WebGLContext.js');
-IncludeScript('Utils.js');
+//IncludeScript('glMatrix-0.9.5.min.js');
+//IncludeScript('Timer.js');
+//IncludeScript('Math.js');
+//IncludeScript('Transform.js');
+//IncludeScript('Mesh.js');
+//IncludeScript('Texture.js');
+//IncludeScript('Camera.js');
+//IncludeScript('ShaderCollection.js');
+//IncludeScript('Shader.js');
+//IncludeScript('WebGLContext.js');
+//IncludeScript('Utils.js');
 
 function initWebGLAM(idCanvas) {
     mvMatrix = mat4.create();

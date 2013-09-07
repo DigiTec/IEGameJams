@@ -17,7 +17,6 @@ Object.defineProperties(MainMenu.prototype, {
     },
     onEnter: {
         value: function onEnter() {
-            initWebGLAM('canvas');
             this.gamecam = new GameCam(this);
             this.player = new Player(this);
 
