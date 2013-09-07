@@ -23,6 +23,7 @@ function Player(gameEngine, x, y) {
     this.animInterp = .07;
 
     this.keyboardController = new KeyboardController(window, this);
+    this.mouseController = new MouseController(document.getElementById("inputManager"), this);
 
     this.mesh = Mesh.CreateTexturedAlphaSquareMesh('shader-vs-texture',
                                               'shader-fs-texture',
@@ -129,14 +130,15 @@ Object.defineProperties(Player.prototype, {
             //console.log(this.y);
         }
     },
-    updateKeyboard: {
-        value: function updateKeyboard(timeElapsed) {
+    updateInput: {
+        value: function updateInput(timeElapsed) {
             this.keyboardController.update(timeElapsed);
+            this.mouseController.update(timeElapsed);
         }
     },
     update: {
         value: function update(timeElapsed) {
-            this.updateKeyboard(timeElapsed);
+            this.updateInput(timeElapsed);
             this.updateKinematics(timeElapsed);
 
             // Image Height of player interp

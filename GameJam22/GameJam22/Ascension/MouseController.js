@@ -2,6 +2,7 @@
 
 function MouseController(sourceInput, player) {
     sourceInput.addEventListener("mousemove", this.onMouseMove.bind(this));
+    sourceInput.addEventListener("mouseout", this.onMouseOut.bind(this));
 
     this.active = true;
     this.lastOffset = 0.0;
@@ -48,6 +49,11 @@ Object.defineProperties(MouseController.prototype, {
             this.lastOffset = evt.clientX / width * 2 - 1;
         }
     },
+    onMouseOut: {
+        value: function onMouseOut(evt) {
+            this.lastOffset = 0;
+        }
+    },
 
     update: {
         value: function update(elapsedTime) {
@@ -80,11 +86,13 @@ Object.defineProperties(MouseController.prototype, {
 
                 // Bleed off velocity if we no longer have an acceleration value
                 if (this.acceleration === 0.0) {
-                    if (this.currentVelocity > 0) {
-                        this.currentVelocity = Math.max(0, this.currentVelocity - this.frictionPerTick);
-                    }
-                    else if (this.currentVelocity < 0) {
-                        this.currentVelocity = Math.min(0, this.currentVelocity + this.frictionPerTick);
+                    if (this.currentVelocity !== 0) {
+                        if (this.currentVelocity > 0) {
+                            this.currentVelocity = Math.max(0, this.currentVelocity - this.frictionPerTick);
+                        }
+                        else {
+                            this.currentVelocity = Math.min(0, this.currentVelocity + this.frictionPerTick);
+                        }
                     }
                 }
 

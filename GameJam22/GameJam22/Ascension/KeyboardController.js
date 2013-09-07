@@ -48,13 +48,13 @@ Object.defineProperties(KeyboardController.prototype, {
     },
     onKeyDown: {
         value: function onKeyDown(evt) {
-            console.log("onKeyDown");
+            // console.log("onKeyDown");
             this.setKeyState(evt.key || evt.keyIdentifier, true);
         }
     },
     onKeyUp: {
         value: function onKeyUp(evt) {
-            console.log("onKeyUp");
+            // console.log("onKeyUp");
             this.setKeyState(evt.key || evt.keyIdentifier, false);
         }
     },
