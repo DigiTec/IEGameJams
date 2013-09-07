@@ -34,7 +34,8 @@ Object.defineProperties(PlatformAction, {
     }
 });
 
-function PlatformProperties() { }
+function PlatformProperties() {
+}
 
 // Statics
 Object.defineProperties(PlatformProperties, {
@@ -85,7 +86,7 @@ Object.defineProperties(Platform.prototype, {
 function NormalPlatform() {
 }
 
-NormalPlatform.prototype = new Platform();
+NormalPlatform.prototype = Object.create(Platform.prototype);
 NormalPlatform.prototype.constructor = NormalPlatform;
 
 //
@@ -95,7 +96,7 @@ NormalPlatform.prototype.constructor = NormalPlatform;
 function SkinnyPlatform() {
 }
 
-SkinnyPlatform.prototype = new Platform();
+SkinnyPlatform.prototype = Object.create(Platform.prototype);
 SkinnyPlatform.prototype.constructor = SkinnyPlatform;
 
 Object.defineProperties(SkinnyPlatform.prototype, {
@@ -112,7 +113,7 @@ Object.defineProperties(SkinnyPlatform.prototype, {
 function BubblePlatform() {
 }
 
-BubblePlatform.prototype = new Platform();
+BubblePlatform.prototype = Object.create(Platform.prototype);
 BubblePlatform.prototype.constructor = BubblePlatform;
 
 Object.defineProperties(BubblePlatform.prototype, {
@@ -134,7 +135,7 @@ Object.defineProperties(BubblePlatform.prototype, {
 function DeathPlatform() {
 }
 
-DeathPlatform.prototype = new Platform();
+DeathPlatform.prototype = Object.create(Platform.prototype);
 DeathPlatform.prototype.constructor = DeathPlatform;
 
 Object.defineProperties(DeathPlatform.prototype, {
@@ -156,7 +157,7 @@ Object.defineProperties(DeathPlatform.prototype, {
 function SuperJumpPlatform() {
 }
 
-SuperJumpPlatform.prototype = new Platform();
+SuperJumpPlatform.prototype = Object.create(Platform.prototype);
 SuperJumpPlatform.prototype.constructor = SuperJumpPlatform;
 
 Object.defineProperties(SuperJumpPlatform.prototype, {
@@ -179,7 +180,7 @@ Object.defineProperties(SuperJumpPlatform.prototype, {
 function FadePlatform() {
 }
 
-FadePlatform.prototype = new Platform();
+FadePlatform.prototype = Object.create(Platform.prototype);
 FadePlatform.prototype.constructor = FadePlatform;
 
 Object.defineProperties(FadePlatform.prototype, {

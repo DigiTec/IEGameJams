@@ -115,8 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataSets\CSVToJSON.pl" />
-    <Content Include="DataSets\IE_SQM_FavoritesHistoryFeeds.jsonp" />
-    <Content Include="DataSets\PS_Blue_Resolves.jsonp" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
