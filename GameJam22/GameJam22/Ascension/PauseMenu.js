@@ -20,19 +20,19 @@ Object.defineProperties(PauseMenu.prototype, {
         value: function onEnter() {
             this.gamecam = new GameCam(this);
             this.player = new Player(this);
-        
+
             this.canvas2D = document.getElementById("canvas2D");
             this.canvas2D.style.zIndex = 1;
             this.context = this.canvas2D.getContext("2d");
             document.getElementById("canvas").style.zindex = 0;
-        
+
             this.menuController = new MenuController();
             var pauseMenu = new Menu(0, this.canvas2D.height >> 1, this.canvas2D.width, (this.canvas2D.height >> 1) - 25);
 
 
             var playOption = new MenuItem("Restart");
             playOption.params = this.game.GameStateMgr;
-            playOption.onSelect = function (){
+            playOption.onSelect = function () {
                 this.params.setState("InGame");
             };
 
@@ -55,7 +55,7 @@ Object.defineProperties(PauseMenu.prototype, {
 
             //Allow input to go through for background movement.
             this.player.update();
-        
+
             //Check input for menu
             this.menuController.update(gameTime);
         }

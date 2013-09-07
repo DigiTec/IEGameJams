@@ -12,7 +12,7 @@
     this.GameStateMgr.addState(new PauseMenu(this));
 
     // Initial state. Should be me 'MENU'
-   // this.GameStateMgr.setState('MainMenu');
+    // this.GameStateMgr.setState('MainMenu');
     this.GameStateMgr.setState("InGame");
 
     // Kick off the game!

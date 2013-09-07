@@ -105,7 +105,7 @@ Object.defineProperties(KeyboardController.prototype, {
                 else if (this.currentVelocity < 0) {
                     this.currentVelocity = Math.min(0, this.currentVelocity + this.frictionPerTick) * this.latency;
                 }
-                
+
                 this.playerObject.applyInput(this.currentVelocity);
             }
         }

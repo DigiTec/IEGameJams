@@ -239,7 +239,7 @@ function LevelManager(gameEngine) {
 Object.defineProperties(LevelManager.prototype, {
     // Array of all existing platform types
     platformTypes: {
-        value:[
+        value: [
         'NormalPlatform',
         'SkinnyPlatform',
         'BubblePlatform',
@@ -265,9 +265,7 @@ Object.defineProperties(LevelManager.prototype, {
     //
     generatePlatforms: {
         value: function generatePlatforms(lowerY, upperY) {
-            for (var curY = lowerY; curY < upperY;
-                curY += this.getNextYDelta(this.platforms[this.platforms.length - 1]))
-            {
+            for (var curY = lowerY; curY < upperY; curY += this.getNextYDelta(this.platforms[this.platforms.length - 1])) {
                 this.platforms.push(new Platform(this.minX + Math.random() * this.deltaX * .6, curY, 4,
                                                  [Math.random() * .5 + .5, Math.random() * .5 + .5, Math.random() * .5 + .5]));
             }

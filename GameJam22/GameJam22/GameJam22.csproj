@@ -79,6 +79,7 @@
     <Content Include="Ascension\MainMenu.js" />
     <Content Include="Ascension\Menu.js" />
     <Content Include="Ascension\MenuController.js" />
+    <Content Include="Ascension\MouseController.js" />
     <Content Include="Ascension\PauseMenu.js" />
     <Content Include="Ascension\Player.js" />
     <Content Include="Ascension\Test\LevelManagerTest.html" />

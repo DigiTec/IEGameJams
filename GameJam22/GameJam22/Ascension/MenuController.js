@@ -1,4 +1,4 @@
-﻿function MenuController() {  
+﻿function MenuController() {
     //Menu collection
     this.menus = new Array();
     this.currentMenu = null;
@@ -6,7 +6,7 @@
     //Defaults
     this.defaultColor = "white";
     this.selectedColor = "yellow";
-    
+
     //Input flags
     this.keyUp = false;
     this.keyUpPressed = false;

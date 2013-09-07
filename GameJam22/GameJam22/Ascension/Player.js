@@ -16,14 +16,14 @@ function Player(gameEngine, x, y) {
 
     this.width = this.gameEngine.scl;
     this.height = this.gameEngine.scl;
-    
+
 
     this.scl = this.gameEngine.scl;
     this.animHeight = 0;
     this.animInterp = .07;
 
     this.keyboardController = new KeyboardController(window, this);
-   
+
     this.mesh = Mesh.CreateTexturedAlphaSquareMesh('shader-vs-texture',
                                               'shader-fs-texture',
                                               ASSETS_RELATIVE_PATH + '/InternetExplorerLogo.512x512.png');

@@ -18,31 +18,31 @@ Object.defineProperties(MainMenu.prototype, {
     onEnter: {
         value: function onEnter() {
             initWebGLAM('canvas');
-        this.gamecam = new GameCam(this);
-        this.player = new Player(this);
-        
-        this.canvas2D = document.getElementById("canvas2D");
-        this.canvas2D.style.zIndex = 1;
-        this.context = this.canvas2D.getContext("2d");
+            this.gamecam = new GameCam(this);
+            this.player = new Player(this);
+
+            this.canvas2D = document.getElementById("canvas2D");
+            this.canvas2D.style.zIndex = 1;
+            this.context = this.canvas2D.getContext("2d");
 
             this.canvasGL = document.getElementById("canvas");
             this.canvasGL.style.zindex = 0;
-        
-        this.menuController = new MenuController();
-        var mainMenu = new Menu(0, this.canvas2D.height >> 1, this.canvas2D.width, (this.canvas2D.height >> 1) - 25);
-        var playOption = new MenuItem("Play");
-        playOption.params = this.game.GameStateMgr;
+
+            this.menuController = new MenuController();
+            var mainMenu = new Menu(0, this.canvas2D.height >> 1, this.canvas2D.width, (this.canvas2D.height >> 1) - 25);
+            var playOption = new MenuItem("Play");
+            playOption.params = this.game.GameStateMgr;
             playOption.onSelect = function () {
-            this.params.setState("InGame");
-        };
+                this.params.setState("InGame");
+            };
 
-        var credits = new MenuItem("Credits");
-        //credits.targetMenu = "Credits";
+            var credits = new MenuItem("Credits");
+            //credits.targetMenu = "Credits";
 
-        mainMenu.addItem(playOption);
-        mainMenu.addItem(credits);
-        this.menuController.addMenu("Main", mainMenu);
-    }
+            mainMenu.addItem(playOption);
+            mainMenu.addItem(credits);
+            this.menuController.addMenu("Main", mainMenu);
+        }
     },
     onExit: {
         value: function onExit() {
@@ -63,18 +63,18 @@ Object.defineProperties(MainMenu.prototype, {
     },
     onUpdate: {
         value: function onUpdate() {
-        this.gamecam.update();
+            this.gamecam.update();
 
-        // Manage fake collision detection here
-        if (this.player.y <= 0) {
-            this.player.applyPlatform(0, "normal");
+            // Manage fake collision detection here
+            if (this.player.y <= 0) {
+                this.player.applyPlatform(0, "normal");
+            }
+
+            //Allow input to go through for background movement.
+            this.player.update();
+
+            //Check input for menu
+            this.menuController.update(gameTime);
         }
-
-        //Allow input to go through for background movement.
-        this.player.update();
-        
-        //Check input for menu
-        this.menuController.update(gameTime);
-}
     },
 });

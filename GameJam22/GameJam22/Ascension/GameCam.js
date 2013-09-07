@@ -11,7 +11,7 @@
 
 // Instance methods
 Object.defineProperties(GameCam.prototype, {
-    isInView:{
+    isInView: {
         value: function isInView(y, scl) {
             if (typeof scl === 'undefined') scl = 0;
             return ((y > -this.camera.getViewTopHeight() + this.y - scl) &&
@@ -27,8 +27,7 @@ Object.defineProperties(GameCam.prototype, {
     update: {
         value: function update() {
             this.y += (this.game.player.curY - this.camera.transform.pos[1]) * this.animInterp;
-            this.camera.transform.translate(0, this.y, 
-                                            this.camera.transform.pos[2]);
+            this.camera.transform.translate(0, this.y, this.camera.transform.pos[2]);
         }
     },
     draw: {
