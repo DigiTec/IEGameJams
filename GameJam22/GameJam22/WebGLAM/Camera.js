@@ -5,9 +5,11 @@ function Camera(drawDistance) {
     WEBGLAM.camera = this;     // Allow for global access.
 
     this.fov = 45.0;
-    if (typeof drawDistance === 'undefined')
-        drawDistance = 2000.0;
+
     this.drawDistance = drawDistance;
+    if (typeof this.drawDistance === 'undefined') {
+        this.drawDistance = 2000.0;
+    }
 
     this.isAtanFovHalfCalculated = false;
     this.atanFovHalf = null;
@@ -29,7 +31,7 @@ Object.defineProperties(Camera, {
 Object.defineProperties(Camera.prototype, {
     getAtanFovHalf: {
         value: function getAtanFovHalf() {
-            if(!this.isAtanFovHalfCalculated) {
+            if (!this.isAtanFovHalfCalculated) {
                 this.atanFovHalf = Math.atan(DegToRad(this.fov * .5));
                 this.isAtanFovHalfCalculated = true;
             }

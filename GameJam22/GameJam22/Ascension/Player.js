@@ -45,7 +45,7 @@ Object.defineProperties(Player, {
         writable: false
     },
     maxVelocity: {
-        value: 60,
+        value: 75,
         writable: false
     },
     maxX: {
