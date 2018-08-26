@@ -17,7 +17,7 @@ Object.defineProperties(GameCam.prototype, {
                 scl = 0;
             }
             return ((y > -this.camera.getViewTopHeight() + this.y - scl) &&
-                    (y < this.camera.getViewTopHeight() + this.y + scl))
+                (y < this.camera.getViewTopHeight() + this.y + scl))
         }
     },
     isUnderView: {
