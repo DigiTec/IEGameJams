@@ -15,6 +15,12 @@
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:8080/WebGLAM/index.html"
+        },
+        {
+            "name": "Launch Tests",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:8080/Testpages/index.html"
         }
     ]
 }

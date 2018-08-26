@@ -2,25 +2,25 @@
 <html>
 
 <head>
-<title> Transform - WebGLAM</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <title> Transform - WebGLAM</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
-        <!-- Can define WebGLAM location before including, incase <this>.html is not immediate parent-->
-<script type="text/javascript">
-    WEBGLAM_RELATIVE_PATH = '..\\WebGLAM';
-</script>
-<script type="text/javascript" src="..\WebGLAM\WebGLAM.js"> </script>
+    <!-- Can define WebGLAM location before including, incase <this>.html is not immediate parent-->
+    <script type="text/javascript">
+        WEBGLAM_RELATIVE_PATH = '/WebGLAM';
+    </script>
+    <script type="text/javascript" src="/WebGLAM/WebGLAM.js"> </script>
 
-<script id="shader-fs" type="x-shader/x-fragment">
+    <script id="shader-fs" type="x-shader/x-fragment">
     precision mediump float;
 
     void main(void) {
         gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
     }
-</script>
+    </script>
 
-<script id="shader-vs" type="x-shader/x-vertex">
+    <script id="shader-vs" type="x-shader/x-vertex">
     attribute vec3 aVertexPosition;
 
     uniform mat4 uMVMatrix;
@@ -30,43 +30,39 @@
     void main(void) {
         gl_Position = uPMatrix * uCamMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
     }
-</script>
+    </script>
 
+    <script type="text/javascript">
+        /**************************************Main.js***********************************/
+        function webGLStart() {
+            initWebGLAM('canvas');
 
-<script type="text/javascript">
-    /**************************************Main.js***********************************/
-    function webGLStart() {
-        initWebGLAM('canvas');
+            camera = new Camera();
+            camera.transform.translate(0, 0, -40);
 
-        camera = new Camera();
-        camera.transform.translate(0, 0, -40);
+            meshTriangle = Mesh.CreateTriangleMesh('shader-vs', 'shader-fs');
+            meshSquare = Mesh.CreateSquareMesh('shader-vs', 'shader-fs');
 
-        meshTriangle = Mesh.CreateTriangleMesh('shader-vs', 'shader-fs');
-        meshSquare = Mesh.CreateSquareMesh('shader-vs', 'shader-fs');
+            // Start drawing...
+            setTimeout(Draw, 16.7)
+        }
 
-        // Start drawing...
-        setTimeout(Draw, 16.7)
-    }
+        var Rotation = 0;
+        function Draw() {
+            Rotation += .01;
+            if (Rotation >= Math.PI * 2) Rotation = 0;
 
-    var Rotation = 0;
-    function Draw() {         
-        Rotation += .01;
-        if (Rotation >= Math.PI * 2) Rotation = 0;
+            camera.draw();
 
-        camera.draw();
+            // Drawing Square
+            meshSquare.transform.translate(0.0, Rotation, -5.0)
+            meshSquare.transform.rotate(Rotation, Rotation, Rotation);
+            meshSquare.draw();
 
-        // Drawing Square
-        meshSquare.transform.translate(0.0, Rotation, -5.0)
-        meshSquare.transform.rotate(Rotation, Rotation, Rotation);
-        meshSquare.draw();
-
-        setTimeout(Draw, 16.7);
-    }
-</script>
-
-
+            setTimeout(Draw, 16.7);
+        }
+    </script>
 </head>
-
 
 <body onload="webGLStart();">
     <canvas id="canvas" style="border: none;" width="500" height="500"></canvas>

@@ -1,126 +1,118 @@
 <!DOCTYPE HTML>
 
 <script>
-var vertexBuffer;
-var gl;
+    var vertexBuffer;
+    var gl;
 
-function Init()
-{
-    var canvas = document.getElementById("theCanvas");
-    initGL(canvas);
-    initShaders();
-    initBuffers();
+    function Init() {
+        var canvas = document.getElementById("theCanvas");
+        initGL(canvas);
+        initShaders();
+        initBuffers();
 
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.enable(gl.DEPTH_TEST);
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.enable(gl.DEPTH_TEST);
 
-    drawScene();
-}
-
-function drawScene()
-{
-    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.useProgram(shaderProgram);
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-
-    shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
-    shaderProgram.uniformTime = gl.getUniformLocation(shaderProgram, "u_time");
-    shaderProgram.uniformScale = gl.getUniformLocation(shaderProgram, "u_scale");
-
-    gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
-    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
-    gl.uniform1f(shaderProgram.uniformTime, (Date.now() - gl.startTime) / 5000);
-    gl.uniform1f(shaderProgram.uniformScale, document.getElementById("scale").value);
-    gl.drawArrays(gl.TRIANGLES, 0, vertexBuffer.itemCount);
-    setTimeout(drawScene, 16);
-}
-
-var shaderProgram;
-function initShaders()
-{
-    var fragShader = getShader(gl, "frag");
-    var vertShader = getShader(gl, "vert");
-
-    shaderProgram = gl.createProgram();
-    gl.attachShader(shaderProgram, fragShader);
-    gl.attachShader(shaderProgram, vertShader);
-    gl.linkProgram(shaderProgram);
-
-  // Check if it linked.
-  var success = gl.getProgramParameter(shaderProgram, gl.LINK_STATUS);
-  if (!success) {
-      // something went wrong with the link
-      alert(gl.getProgramInfoLog(shaderProgram));
-  }
-}
-
-function getShader(gl, id)
-{
-    var shaderScript = document.getElementById(id);
-
-    var str = "";
-    var k = shaderScript.firstChild;
-    while (k) {
-      if (k.nodeType == 3)
-          str += k.textContent;
-      k = k.nextSibling;
+        drawScene();
     }
 
-    var shader;
-    if ( shaderScript.type === "x-shader/x-fragment" )
-    {
-        shader = gl.createShader(gl.FRAGMENT_SHADER);
+    function drawScene() {
+        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+        gl.useProgram(shaderProgram);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+
+        shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+        shaderProgram.uniformTime = gl.getUniformLocation(shaderProgram, "u_time");
+        shaderProgram.uniformScale = gl.getUniformLocation(shaderProgram, "u_scale");
+
+        gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+        gl.uniform1f(shaderProgram.uniformTime, (Date.now() - gl.startTime) / 5000);
+        gl.uniform1f(shaderProgram.uniformScale, document.getElementById("scale").value);
+        gl.drawArrays(gl.TRIANGLES, 0, vertexBuffer.itemCount);
+        setTimeout(drawScene, 16);
     }
-    else if ( shaderScript.type === "x-shader/x-vertex" )
-    {
-        shader = gl.createShader(gl.VERTEX_SHADER);
+
+    var shaderProgram;
+    function initShaders() {
+        var fragShader = getShader(gl, "frag");
+        var vertShader = getShader(gl, "vert");
+
+        shaderProgram = gl.createProgram();
+        gl.attachShader(shaderProgram, fragShader);
+        gl.attachShader(shaderProgram, vertShader);
+        gl.linkProgram(shaderProgram);
+
+        // Check if it linked.
+        var success = gl.getProgramParameter(shaderProgram, gl.LINK_STATUS);
+        if (!success) {
+            // something went wrong with the link
+            alert(gl.getProgramInfoLog(shaderProgram));
+        }
     }
-    else
-    {
-        return null;
+
+    function getShader(gl, id) {
+        var shaderScript = document.getElementById(id);
+
+        var str = "";
+        var k = shaderScript.firstChild;
+        while (k) {
+            if (k.nodeType == 3)
+                str += k.textContent;
+            k = k.nextSibling;
+        }
+
+        var shader;
+        if (shaderScript.type === "x-shader/x-fragment") {
+            shader = gl.createShader(gl.FRAGMENT_SHADER);
+        }
+        else if (shaderScript.type === "x-shader/x-vertex") {
+            shader = gl.createShader(gl.VERTEX_SHADER);
+        }
+        else {
+            return null;
+        }
+
+        gl.shaderSource(shader, str);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            alert(gl.getShaderInfoLog(shader));
+        };
+
+        return shader;
     }
 
-    gl.shaderSource(shader, str);
-    gl.compileShader(shader);
-    if(!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        alert(gl.getShaderInfoLog(shader));
-    };
+    function initGL(canvas) {
+        gl = canvas.getContext("experimental-webgl");
+        gl.viewportWidth = canvas.width;
+        gl.viewportHeight = canvas.height;
+        gl.startTime = Date.now();
+    }
 
-    return shader;
-}
+    var quad = [
+        -0.5, -0.5, 0, 1,
+        0.5, -0.5, 0, 1,
+        0.5, 0.5, 0, 1,
 
-function initGL(canvas)
-{
-    gl = canvas.getContext("experimental-webgl");
-    gl.viewportWidth = canvas.width;
-    gl.viewportHeight = canvas.height;
-    gl.startTime = Date.now();
-}
-
-var quad = [
-    -0.5, -0.5, 0, 1,
-    0.5, -0.5, 0, 1,
-    0.5, 0.5, 0, 1,
-
-    -0.5, -0.5, 0, 1,
-    0.5, 0.5, 0, 1,
-    -0.5, 0.5, 0, 1
-];
-function initBuffers()
-{
-    vertexBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(quad), gl.STATIC_DRAW);
-    vertexBuffer.itemSize = 4;
-    vertexBuffer.itemCount = 6;
-}
+        -0.5, -0.5, 0, 1,
+        0.5, 0.5, 0, 1,
+        -0.5, 0.5, 0, 1
+    ];
+    function initBuffers() {
+        vertexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(quad), gl.STATIC_DRAW);
+        vertexBuffer.itemSize = 4;
+        vertexBuffer.itemCount = 6;
+    }
 </script>
+
 <body onload="Init();">
-  Scale: <input id="scale" type="range" min="0.1" max="20" step="0.01">
-  <canvas id="theCanvas" width="640" height="480"></canvas>
-  <script id="frag" type="x-shader/x-fragment">
+    Scale: <input id="scale" type="range" min="0.1" max="20" step="0.01">
+    <canvas id="theCanvas" width="640" height="480"></canvas>
+    <script id="frag" type="x-shader/x-fragment">
     precision mediump float;
     varying vec2 vUv;
     uniform float u_time;
@@ -233,16 +225,16 @@ function initBuffers()
         gl_FragColor = vec4( nCubed, nCubed, n, 1.0 );
 
     }
-  </script>
-  <script id="vert" type="x-shader/x-vertex">
-  attribute vec4 aVertexPosition;
-  varying vec2 vUv;
-  uniform float u_scale;
+    </script>
+    <script id="vert" type="x-shader/x-vertex">
+    attribute vec4 aVertexPosition;
+    varying vec2 vUv;
+    uniform float u_scale;
 
-  void main(void)
-  {
-    gl_Position = aVertexPosition;
-    vUv = aVertexPosition.xy * u_scale;
-  }
-  </script>
+    void main(void)
+    {
+        gl_Position = aVertexPosition;
+        vUv = aVertexPosition.xy * u_scale;
+    }
+    </script>
 </body>
