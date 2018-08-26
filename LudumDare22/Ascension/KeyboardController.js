@@ -61,9 +61,11 @@ Object.defineProperties(KeyboardController.prototype, {
     setKeyState: {
         value: function setKeyState(keyBind, newValue) {
             switch (keyBind) {
+                case "ArrowLeft":
                 case "Left":
                     this.keyLeft = newValue;
                     break;
+                case "ArrowRight":
                 case "Right":
                     this.keyRight = newValue;
                     break;
