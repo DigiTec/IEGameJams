@@ -1,0 +1,24 @@
+{
+  "name": "iegamejams",
+  "version": "1.0.0",
+  "description": "IEGameJams\r ==========",
+  "main": "index.js",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "ascension": "node node_modules/http-server/bin/http-server GameJam22/GameJam22",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DigiTec/IEGameJams.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DigiTec/IEGameJams/issues"
+  },
+  "homepage": "https://github.com/DigiTec/IEGameJams#readme"
+}

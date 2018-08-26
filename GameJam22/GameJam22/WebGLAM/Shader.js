@@ -69,15 +69,15 @@ function CreateAllVertexAndFragmentShaders() {
     // Index all shaders in document.
     for (var i = 0; i < scripts.length; ++i) {
         // Add Fragment Shaders
-        if (all[i].type == 'x-shader/x-fragment') {
-            if (!(all[i].id in arrayFragmentShaders)) {
-                arrayFragmentShaders[all[i].id] = getShader(gl, all[i]);
+        if (scripts[i].type == 'x-shader/x-fragment') {
+            if (!(scripts[i].id in arrayFragmentShaders)) {
+                arrayFragmentShaders[scripts[i].id] = getShader(gl, scripts[i]);
             }
         }
             // Add Vertex Shaders
-        else if (all[i].type == 'x-shader/x-vertex') {
-            if (!(all[i].id in arrayVertexShaders)) {
-                arrayVertexShaders[all[i].id] = getShader(gl, all[i]);
+        else if (scripts[i].type == 'x-shader/x-vertex') {
+            if (!(scripts[i].id in arrayVertexShaders)) {
+                arrayVertexShaders[scripts[i].id] = getShader(gl, scripts[i]);
             }
         }
     }

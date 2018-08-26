@@ -2,63 +2,63 @@
 <html>
 
 <head>
-<title>WebGLAM Framework</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <title>WebGLAM Framework</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
 
     <!-- Can define WebGLAM location before including, incase <this>.html is not immediate parent-->
-<script type="text/javascript">
-    WEBGLAM_RELATIVE_PATH = 'WebGLAM';
-</script>
-<script type="text/javascript" src="WebGLAM\WebGLAM.js"> </script>
+    <script type="text/javascript">
+        WEBGLAM_RELATIVE_PATH = 'WebGLAM';
+    </script>
+    <script type="text/javascript" src="WebGLAM\WebGLAM.js"> </script>
 
-<script type="text/javascript">
-    /**************************************Main.js***********************************/
-    function webGLStart() {
-        initWebGLAM('canvas');
+    <script type="text/javascript">
+        /**************************************Main.js***********************************/
+        function webGLStart() {
+            initWebGLAM('canvas');
 
-        camera = new Camera();
-        camera.transform.translate(0, 0, -300.0);
+            camera = new Camera();
+            camera.transform.translate(0, 0, -300.0);
 
-        meshes = [];
-        var cntMesh = 100;
+            meshes = [];
+            var cntMesh = 100;
 
-        for (var i = 0; i < cntMesh; ++i) {
-            meshes.push(Mesh.CreateTexturedAlphaSquareMesh('shader-vs-texture',
-                                                           'shader-fs-texture',
-                                                           'Assets/WebGLAM.png'));
+            for (var i = 0; i < cntMesh; ++i) {
+                meshes.push(Mesh.CreateTexturedAlphaSquareMesh('shader-vs-texture',
+                    'shader-fs-texture',
+                    'Assets/WebGLAM.png'));
 
-            var radStep = (i / cntMesh) * _2PI;
-            var radius = cntMesh * .8;
-            meshes[meshes.length - 1].transform.translate(Math.cos(radStep) * radius,
-                                                          Math.sin(radStep) * radius,
-                                                          0.0);
-            meshes[meshes.length - 1].transform.scale(Math.cos(radStep) * radius,
-                                                          Math.sin(radStep) * radius,
-                                                          0.0);
-        }
-        
+                var radStep = (i / cntMesh) * _2PI;
+                var radius = cntMesh * .8;
+                meshes[meshes.length - 1].transform.translate(Math.cos(radStep) * radius,
+                    Math.sin(radStep) * radius,
+                    0.0);
+                meshes[meshes.length - 1].transform.scale(Math.cos(radStep) * radius,
+                    Math.sin(radStep) * radius,
+                    0.0);
+            }
 
-        // Start drawing...
-        requestAnimationFrame(Draw)
-    }
-    
-    var Rotation = 0;
-    function Draw() {         
-        Rotation += .01;
-        if (Rotation >= Math.PI * 2) Rotation = 0;
 
-        camera.draw();
-
-        for (var i = 0; i < meshes.length; ++i) {
-            meshes[i].transform.rotate(Rotation, 0, 0);
-            meshes[i].draw();
+            // Start drawing...
+            requestAnimationFrame(Draw)
         }
 
-        requestAnimationFrame(Draw);
-    }
-</script>
+        var Rotation = 0;
+        function Draw() {
+            Rotation += .01;
+            if (Rotation >= Math.PI * 2) Rotation = 0;
+
+            camera.draw();
+
+            for (var i = 0; i < meshes.length; ++i) {
+                meshes[i].transform.rotate(Rotation, 0, 0);
+                meshes[i].draw();
+            }
+
+            requestAnimationFrame(Draw);
+        }
+    </script>
 
 
 </head>
