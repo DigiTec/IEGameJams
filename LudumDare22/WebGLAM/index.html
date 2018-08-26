@@ -8,9 +8,9 @@
 
     <!-- Can define WebGLAM location before including, incase <this>.html is not immediate parent-->
     <script type="text/javascript">
-        WEBGLAM_RELATIVE_PATH = 'WebGLAM';
+        WEBGLAM_RELATIVE_PATH = '/WebGLAM';
     </script>
-    <script type="text/javascript" src="WebGLAM\WebGLAM.js"> </script>
+    <script type="text/javascript" src="WebGLAM.js"> </script>
     <script type="text/javascript">
         /**************************************Main.js***********************************/
         function webGLStart() {
@@ -25,7 +25,7 @@
             for (var i = 0; i < cntMesh; ++i) {
                 meshes.push(Mesh.CreateTexturedAlphaSquareMesh('shader-vs-texture',
                     'shader-fs-texture',
-                    'Assets/WebGLAM.png'));
+                    '/Assets/WebGLAM.png'));
 
                 var radStep = (i / cntMesh) * _2PI;
                 var radius = cntMesh * .8;

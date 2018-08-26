@@ -5,7 +5,7 @@
     "tasks": [
         {
             "type": "npm",
-            "script": "ascension",
+            "script": "server",
             "problemMatcher": []
         }
     ]

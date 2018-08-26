@@ -8,8 +8,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "ascension": "node node_modules/http-server/bin/http-server GameJam22/GameJam22",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node node_modules/http-server/bin/http-server LudumDare22"
   },
   "repository": {
     "type": "git",

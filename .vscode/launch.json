@@ -9,7 +9,12 @@
             "type": "chrome",
             "request": "launch",
             "url": "http://localhost:8080/Ascension/index.html"
-//            "file": "${workspaceFolder}/GameJam22/GameJam22/Ascension/index.html"
+        },
+        {
+            "name": "Launch WebGLAM",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:8080/WebGLAM/index.html"
         }
     ]
 }
