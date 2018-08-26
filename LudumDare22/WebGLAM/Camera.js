@@ -56,7 +56,8 @@ Object.defineProperties(Camera.prototype, {
     },
     draw: {
         value: function draw() {
-            WEBGLAM.camera = this;     // Allow for global access.
+            // Allow for global access.
+            WEBGLAM.camera = this;
 
             gl.clearColor(0.0, 0.4, 0.7, 1.0);
             gl.enable(gl.DEPTH_TEST);
