@@ -29,7 +29,6 @@
   })();
 }
 
-
 MenuController.prototype = Object.create(null);
 MenuController.prototype.constructor = MenuController;
 
@@ -39,15 +38,15 @@ Object.defineProperties(MenuController.prototype, {
     value: function setKeyState(keyBind, newValue) {
       switch (keyBind) {
         case "Up":
-          this.keyUpPressed = (this.keyUp == true && !newValue);
+          this.keyUpPressed = this.keyUp == true && !newValue;
           this.keyUp = newValue;
           break;
         case "Down":
-          this.keyDownPressed = (this.keyDown == true && !newValue);
+          this.keyDownPressed = this.keyDown == true && !newValue;
           this.keyDown = newValue;
           break;
         case "Enter":
-          this.keyEnterPressed = (this.keyEnter == true && !newValue);
+          this.keyEnterPressed = this.keyEnter == true && !newValue;
           this.keyEnter = newValue;
           break;
       }
@@ -84,8 +83,7 @@ Object.defineProperties(MenuController.prototype, {
       if (this.keyUpPressed) {
         this.keyUpPressed = false;
         activeMenu.previousItem();
-      }
-      else if (this.keyDownPressed) {
+      } else if (this.keyDownPressed) {
         this.keyDownPressed = false;
         activeMenu.nextItem();
       }
@@ -108,5 +106,5 @@ Object.defineProperties(MenuController.prototype, {
       console.log("onKeyDown");
       this.setKeyState(evt.key || evt.keyIdentifier, true);
     }
-  },
+  }
 });

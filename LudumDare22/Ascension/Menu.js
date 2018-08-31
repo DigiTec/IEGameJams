@@ -2,7 +2,7 @@
   this.text = text;
   this.targetMenu = null;
   this.params = null;
-  this.onSelect = function () { };
+  this.onSelect = function() {};
 }
 
 MenuItem.prototype = Object.create(null);
@@ -77,8 +77,13 @@ Object.defineProperties(Menu.prototype, {
         if (this.menuIndex == i) {
           context.fillStyle = "yellow";
         }
-        context.fillText(this.items[i].text, this.x + ((this.width >> 1) - (context.measureText(this.items[i].text).width >> 1)),
-          (this.y + (this.itemOffset * i)) + (this.height >> 1));
+        context.fillText(
+          this.items[i].text,
+          this.x +
+            ((this.width >> 1) -
+              (context.measureText(this.items[i].text).width >> 1)),
+          this.y + this.itemOffset * i + (this.height >> 1)
+        );
         context.restore();
       }
     }

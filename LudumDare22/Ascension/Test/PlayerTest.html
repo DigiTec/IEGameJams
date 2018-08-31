@@ -2,22 +2,22 @@
 <html>
 
 <head>
-<title>WebGLAM Framework Template</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>WebGLAM Framework Template</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 
 
-    <!-- Can define WebGLAM location before including, incase <this>.html is not immediate parent-->
-<script type="text/javascript">
+  <!-- Can define WebGLAM location before including, incase <this>.html is not immediate parent-->
+  <script type="text/javascript">
     WEBGLAM_RELATIVE_PATH = '../../WebGLAM';
     ASCENSION_RELATIVE_PATH = '..';
     ASSETS_RELATIVE_PATH = '../Assets';
-</script>
-<script type="text/javascript" src="../../WebGLAM/WebGLAM.js"> </script>
-<script type="text/javascript" src="../Ascension.js"></script>
+  </script>
+  <script type="text/javascript" src="../../WebGLAM/WebGLAM.js"> </script>
+  <script type="text/javascript" src="../Ascension.js"></script>
 
 
-<script id="shader-fs-texture" type="x-shader/x-fragment">
+  <script id="shader-fs-texture" type="x-shader/x-fragment">
     varying highp vec2 vTextureCoord;
     uniform sampler2D uSampler;
 
@@ -26,7 +26,7 @@
     }
 </script>
 
-<script id="shader-vs-texture" type="x-shader/x-vertex">
+  <script id="shader-vs-texture" type="x-shader/x-vertex">
     attribute vec3 aVertexPosition;
     attribute vec2 aTextureCoord;
 
@@ -42,108 +42,108 @@
 </script>
 
 
-<script type="text/javascript">
+  <script type="text/javascript">
 
 
 
     /**************************************Main.js***********************************/
     var canvasGameEngine = {};
     function canvasStart() {
-        canvasGameEngine.context = document.getElementById("canvas").getContext("2d");
-        canvasGameEngine.player = new Player();
-        canvasGameEngine.player.keyboardController = new KeyboardController(window, canvasGameEngine.player);
-        requestAnimationFrame(canvasTestGameLoop);
+      canvasGameEngine.context = document.getElementById("canvas").getContext("2d");
+      canvasGameEngine.player = new Player();
+      canvasGameEngine.player.keyboardController = new KeyboardController(window, canvasGameEngine.player);
+      requestAnimationFrame(canvasTestGameLoop);
     }
     function canvasTestGameLoop() {
-        var player = canvasGameEngine.player;
+      var player = canvasGameEngine.player;
 
-        // Standard game update logic
-        player.keyboardController.update();
-        player.update();
-        // Camera update takes the player
+      // Standard game update logic
+      player.keyboardController.update();
+      player.update();
+      // Camera update takes the player
 
-        // Manage fake collision detection here
-        // gameEngine.levelManager.checkForPlayerCollision(player);
-        if (player.y <= 0) {
-            player.applyPlatform(0, "normal");
-        }
+      // Manage fake collision detection here
+      // gameEngine.levelManager.checkForPlayerCollision(player);
+      if (player.y <= 0) {
+        player.applyPlatform(0, "normal");
+      }
 
-        canvasRender();
+      canvasRender();
 
-        requestAnimationFrame(canvasTestGameLoop);
+      requestAnimationFrame(canvasTestGameLoop);
     }
     function canvasRender() {
-        var ctx = canvasGameEngine.context;
-        var boardWidth = ctx.canvas.width;
-        var boardHeight = ctx.canvas.height;
+      var ctx = canvasGameEngine.context;
+      var boardWidth = ctx.canvas.width;
+      var boardHeight = ctx.canvas.height;
 
-        ctx.fillStyle = "lightblue";
-        ctx.fillRect(0, 0, boardWidth, boardHeight);
+      ctx.fillStyle = "lightblue";
+      ctx.fillRect(0, 0, boardWidth, boardHeight);
 
 
-        // Half widths
-        var halfWidthXBoard = boardWidth / 2;
-        var halfWidthXPlayer = canvasGameEngine.player.width / 2;
+      // Half widths
+      var halfWidthXBoard = boardWidth / 2;
+      var halfWidthXPlayer = canvasGameEngine.player.width / 2;
 
-        // Draw the player
-        ctx.fillStyle = "red";
-        ctx.fillRect(
-            canvasGameEngine.player.x + halfWidthXBoard - halfWidthXPlayer,
-            boardHeight - (canvasGameEngine.player.height + canvasGameEngine.player.y),
-            canvasGameEngine.player.width, canvasGameEngine.player.height);
+      // Draw the player
+      ctx.fillStyle = "red";
+      ctx.fillRect(
+        canvasGameEngine.player.x + halfWidthXBoard - halfWidthXPlayer,
+        boardHeight - (canvasGameEngine.player.height + canvasGameEngine.player.y),
+        canvasGameEngine.player.width, canvasGameEngine.player.height);
     }
 
     function webGLStart() {
-        initWebGLAM('canvas');
+      initWebGLAM('canvas');
 
-        camera = new Camera();
-        camera.transform.translate(0, 0, -50.0);
+      camera = new Camera();
+      camera.transform.translate(0, 0, -50.0);
 
-        canvasGameEngine.player = new Player();
-        canvasGameEngine.player.keyboardController =
-            new KeyboardController(window, canvasGameEngine.player);
+      canvasGameEngine.player = new Player();
+      canvasGameEngine.player.keyboardController =
+        new KeyboardController(window, canvasGameEngine.player);
 
-        // Start drawing...
-        timeLast = getTimeInMilliseconds();
-        requestAnimationFrame(Draw)
+      // Start drawing...
+      timeLast = getTimeInMilliseconds();
+      requestAnimationFrame(Draw)
     }
 
     function Draw() {
-        timeElapsed = getTimeInMilliseconds() - timeLast;
+      timeElapsed = getTimeInMilliseconds() - timeLast;
 
-        var player = canvasGameEngine.player;
+      var player = canvasGameEngine.player;
 
-        // Standard game update logic
-        player.keyboardController.update(timeElapsed);
-        player.update();
-        // Camera update takes the player
+      // Standard game update logic
+      player.keyboardController.update(timeElapsed);
+      player.update();
+      // Camera update takes the player
 
-        // Manage fake collision detection here
-        // gameEngine.levelManager.checkForPlayerCollision(player);
-        if (player.y <= 0) {
-            player.applyPlatform(0, "normal");
-        }
+      // Manage fake collision detection here
+      // gameEngine.levelManager.checkForPlayerCollision(player);
+      if (player.y <= 0) {
+        player.applyPlatform(0, "normal");
+      }
 
-        camera.draw();
-        canvasGameEngine.player.draw();
+      camera.draw();
+      canvasGameEngine.player.draw();
 
-        requestAnimationFrame(Draw);
+      requestAnimationFrame(Draw);
 
-        timeLast = getTimeInMilliseconds();
+      timeLast = getTimeInMilliseconds();
     }
-</script>
+  </script>
 
 
 </head>
 
 
 <body onload="webGLStart();">
-    <div>
-        Welcome to WebGLAM 0.1!
-    </div>
-    <canvas id="canvas" style="border: none;" width="500" height="500"></canvas>
+  <div>
+    Welcome to WebGLAM 0.1!
+  </div>
+  <canvas id="canvas" style="border: none;" width="500" height="500"></canvas>
 
-    <br/>
+  <br/>
 </body>
 
 </html>

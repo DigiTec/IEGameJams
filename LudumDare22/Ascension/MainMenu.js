@@ -28,10 +28,15 @@ Object.defineProperties(MainMenu.prototype, {
       this.canvasGL.style.zindex = 0;
 
       this.menuController = new MenuController();
-      var mainMenu = new Menu(0, this.canvas2D.height >> 1, this.canvas2D.width, (this.canvas2D.height >> 1) - 25);
+      var mainMenu = new Menu(
+        0,
+        this.canvas2D.height >> 1,
+        this.canvas2D.width,
+        (this.canvas2D.height >> 1) - 25
+      );
       var playOption = new MenuItem("Play");
       playOption.params = this.game.GameStateMgr;
-      playOption.onSelect = function () {
+      playOption.onSelect = function() {
         this.params.setState("InGame");
       };
 
@@ -75,5 +80,5 @@ Object.defineProperties(MainMenu.prototype, {
       //Check input for menu
       this.menuController.update(gameTime);
     }
-  },
+  }
 });

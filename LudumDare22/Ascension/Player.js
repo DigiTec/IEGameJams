@@ -19,18 +19,23 @@ function Player(gameEngine, x, y) {
 
   this.scl = this.gameEngine.scl;
   this.animHeight = 0;
-  this.animInterp = .07;
+  this.animInterp = 0.07;
 
   this.keyboardController = new KeyboardController(window, this);
-  this.mouseController = new MouseController(document.getElementById("inputManager"), this);
+  this.mouseController = new MouseController(
+    document.getElementById("inputManager"),
+    this
+  );
 
-  this.mesh = Mesh.CreateTexturedAlphaSquareMesh('shader-vs-texture',
-    'shader-fs-texture',
-    ASSETS_RELATIVE_PATH + '/InternetExplorerLogo.512x512.png');
+  this.mesh = Mesh.CreateTexturedAlphaSquareMesh(
+    "shader-vs-texture",
+    "shader-fs-texture",
+    ASSETS_RELATIVE_PATH + "/InternetExplorerLogo.512x512.png"
+  );
 
   this.decelerationPerTick = Player.decelerationPerTick;
   this.maxVelocity = Player.maxVelocity;
-  this.vec2Dir = [0, 1];                  // 2d direction
+  this.vec2Dir = [0, 1]; // 2d direction
 
   this.viewXMin = this.gameEngine.viewXMin;
   this.viewXMax = this.gameEngine.viewXMax;
@@ -62,17 +67,16 @@ Object.defineProperties(Player.prototype, {
     value: function applyInput(velocity) {
       if (this.onGround) {
         // On the ground we can't move
-      }
-      else { // Wrap player on other side of screen
+      } else {
+        // Wrap player on other side of screen
         this.x += velocity;
 
         if (velocity === 0) this.vec2Dir[0] = 0;
-        else this.vec2Dir[0] = (velocity > 0 ? 1 : -1);  // extract direction
+        else this.vec2Dir[0] = velocity > 0 ? 1 : -1; // extract direction
 
         if (this.x > this.viewXMax) {
           this.x = this.viewXMin;
-        }
-        else if (this.x < this.viewXMin) {
+        } else if (this.x < this.viewXMin) {
           this.x = this.viewXMax;
         }
       }
@@ -104,7 +108,7 @@ Object.defineProperties(Player.prototype, {
   updateKinematics: {
     value: function updateKinematics(elapsedTime) {
       if (this.onGround) {
-        this.animHeight = this.scl * .5;
+        this.animHeight = this.scl * 0.5;
         this.onGround = false;
 
         // We need to bounce, but we need to do it based on the type of platform we are on.
@@ -112,20 +116,20 @@ Object.defineProperties(Player.prototype, {
           this.superJump = false;
           this.superJumpTimer = DateTime.now;
           this.bounceVelocity = this.maxVelocity;
-        }
-        else if ((Date.now - this.superJumpTimer) < 2000) {
+        } else if (Date.now - this.superJumpTimer < 2000) {
           // We let the bounceVelocity continue
-        }
-        else {
+        } else {
           this.bounceVelocity = this.maxVelocity / 2;
         }
-      }
-      else {
+      } else {
         // Applying gravity
-        this.bounceVelocity = Math.max(-this.maxVelocity, this.bounceVelocity - this.decelerationPerTick);
+        this.bounceVelocity = Math.max(
+          -this.maxVelocity,
+          this.bounceVelocity - this.decelerationPerTick
+        );
       }
       this.y += this.bounceVelocity * this.latency;
-      this.vec2Dir[1] = (this.bounceVelocity > 0 ? 1 : -1);  // extract direction
+      this.vec2Dir[1] = this.bounceVelocity > 0 ? 1 : -1; // extract direction
       //console.log(this.y);
     }
   },

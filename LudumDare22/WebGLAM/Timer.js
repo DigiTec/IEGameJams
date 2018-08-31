@@ -1,3 +1,3 @@
 ﻿function getTimeInMilliseconds() {
-    return (new Date()).getMilliseconds();
+  return new Date().getMilliseconds();
 }

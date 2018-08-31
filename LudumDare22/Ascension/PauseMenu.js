@@ -27,12 +27,16 @@ Object.defineProperties(PauseMenu.prototype, {
       document.getElementById("canvas").style.zindex = 0;
 
       this.menuController = new MenuController();
-      var pauseMenu = new Menu(0, this.canvas2D.height >> 1, this.canvas2D.width, (this.canvas2D.height >> 1) - 25);
-
+      var pauseMenu = new Menu(
+        0,
+        this.canvas2D.height >> 1,
+        this.canvas2D.width,
+        (this.canvas2D.height >> 1) - 25
+      );
 
       var playOption = new MenuItem("Restart");
       playOption.params = this.game.GameStateMgr;
-      playOption.onSelect = function () {
+      playOption.onSelect = function() {
         this.params.setState("InGame");
       };
 
@@ -65,7 +69,7 @@ Object.defineProperties(PauseMenu.prototype, {
       this.gamecam.draw();
       this.player.draw();
 
-      //Clear 
+      //Clear
       this.context.clearRect(0, 0, this.canvas2D.width, this.canvas2D.height);
 
       this.menuController.draw(gameTime, this.context);

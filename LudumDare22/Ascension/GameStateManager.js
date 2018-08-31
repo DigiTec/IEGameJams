@@ -1,5 +1,4 @@
-﻿function GameState() {
-}
+﻿function GameState() {}
 
 GameState.prototype = Object.create(null);
 GameState.prototype.constructor = GameState;
@@ -21,10 +20,9 @@ function GameStateManager() {
 GameStateManager.prototype = Object.create(null);
 GameStateManager.prototype.constructor = GameStateManager;
 
-(function () {
+(function() {
   // Hidden SubStates values.
-  function SubStates() {
-  }
+  function SubStates() {}
 
   Object.defineProperties(SubStates, {
     ON_ENTER: {
@@ -80,8 +78,7 @@ GameStateManager.prototype.constructor = GameStateManager;
         if (this.currentState == null) {
           this.currentState = this.states[stateName];
           this.subState = SubStates.ON_ENTER;
-        }
-        else {
+        } else {
           this.waitingState = this.states[stateName];
           this.subState = SubStates.ON_EXIT;
         }
@@ -104,13 +101,11 @@ GameStateManager.prototype.constructor = GameStateManager;
               this.currentState.onEnter(gameTime);
             }
             this.subState = SubStates.ON_UPDATE;
-          }
-          else if (this.subState === SubStates.ON_UPDATE) {
+          } else if (this.subState === SubStates.ON_UPDATE) {
             if (this.currentState.onUpdate) {
               this.currentState.onUpdate(gameTime);
             }
-          }
-          else if (this.subState === SubStates.ON_EXIT) {
+          } else if (this.subState === SubStates.ON_EXIT) {
             this.changingState = true;
             if (this.currentState.onExit) {
               this.currentState.onExit(gameTime);
@@ -121,7 +116,10 @@ GameStateManager.prototype.constructor = GameStateManager;
     },
     draw: {
       value: function draw(gameTime) {
-        if (this.currentState !== null && this.subState === SubStates.ON_UPDATE) {
+        if (
+          this.currentState !== null &&
+          this.subState === SubStates.ON_UPDATE
+        ) {
           if (this.currentState.onDraw) {
             this.currentState.onDraw(gameTime);
           }

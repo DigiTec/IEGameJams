@@ -1,5 +1,4 @@
 ﻿function InGame(game) {
-
   this.viewXMin = null;
   this.viewXMax = null;
   this.levelHeight = 20000;
@@ -32,7 +31,11 @@ Object.defineProperties(InGame.prototype, {
       this.level = new LevelManager(this);
       this.level.generatePlatforms(0, this.levelHeight);
 
-      this.player = new Player(this, this.level.platforms[0].x, this.level.platforms[0].y);
+      this.player = new Player(
+        this,
+        this.level.platforms[0].x,
+        this.level.platforms[0].y
+      );
     }
   },
   onUpdate: {
@@ -57,9 +60,6 @@ Object.defineProperties(InGame.prototype, {
     }
   },
   onExit: {
-    value: function onExit() {
-
-
-    }
+    value: function onExit() {}
   }
 });

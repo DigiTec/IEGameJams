@@ -39,8 +39,7 @@ Object.defineProperties(KeyboardController.prototype, {
       if (!this.keyLeft && !this.keyRight) {
         this.acceleration = 0;
         this.currentVelocity = 0;
-      }
-      else {
+      } else {
         this.acceleration /= 2;
         this.currentVelocity /= 2;
       }
@@ -79,37 +78,55 @@ Object.defineProperties(KeyboardController.prototype, {
           if (this.acceleration > 0) {
             this.acceleration = 0;
           }
-          this.acceleration = Math.clamp(-this.maxAccel, this.maxAccel, this.acceleration - this.accelerationPerTick);
-        }
-        else if (this.keyRight && !this.keyLeft) {
+          this.acceleration = Math.clamp(
+            -this.maxAccel,
+            this.maxAccel,
+            this.acceleration - this.accelerationPerTick
+          );
+        } else if (this.keyRight && !this.keyLeft) {
           if (this.acceleration < 0) {
             this.acceleration = 0;
           }
-          this.acceleration = Math.clamp(-this.maxAccel, this.maxAccel, this.acceleration + this.accelerationPerTick);
-        }
-        else {
+          this.acceleration = Math.clamp(
+            -this.maxAccel,
+            this.maxAccel,
+            this.acceleration + this.accelerationPerTick
+          );
+        } else {
           // Bleed off acceleration if both keys or no keys are pressed.
           if (this.acceleration > 0) {
-            this.acceleration = Math.max(0, this.acceleration - this.accelerationPerTick);
-          }
-          else if (this.acceleration < 0) {
-            this.acceleration = Math.min(0, this.acceleration + this.accelerationPerTick);
+            this.acceleration = Math.max(
+              0,
+              this.acceleration - this.accelerationPerTick
+            );
+          } else if (this.acceleration < 0) {
+            this.acceleration = Math.min(
+              0,
+              this.acceleration + this.accelerationPerTick
+            );
           }
         }
 
         // Apply the acceleration
-        this.currentVelocity = Math.clamp(-this.maxVelocity, this.maxVelocity, this.currentVelocity + this.acceleration);
+        this.currentVelocity = Math.clamp(
+          -this.maxVelocity,
+          this.maxVelocity,
+          this.currentVelocity + this.acceleration
+        );
 
         // Bleed off velocity
         if (this.currentVelocity > 0) {
-          this.currentVelocity = Math.max(0, this.currentVelocity - this.frictionPerTick) * this.latency;
-        }
-        else if (this.currentVelocity < 0) {
-          this.currentVelocity = Math.min(0, this.currentVelocity + this.frictionPerTick) * this.latency;
+          this.currentVelocity =
+            Math.max(0, this.currentVelocity - this.frictionPerTick) *
+            this.latency;
+        } else if (this.currentVelocity < 0) {
+          this.currentVelocity =
+            Math.min(0, this.currentVelocity + this.frictionPerTick) *
+            this.latency;
         }
 
         this.playerObject.applyInput(this.currentVelocity);
       }
     }
-  },
+  }
 });

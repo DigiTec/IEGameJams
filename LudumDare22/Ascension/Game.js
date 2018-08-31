@@ -4,7 +4,7 @@
   this.timeElapsed = 0;
   this.timePrevious;
 
-  initWebGLAM('canvas');
+  initWebGLAM("canvas");
 
   this.GameStateMgr = new GameStateManager();
   this.GameStateMgr.addState(new InGame(this));
